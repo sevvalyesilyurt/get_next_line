@@ -27,7 +27,7 @@ Projeyi derlemek için:
 cc -Wall -Wextra -Werror get_next_line.c get_next_line_utils.c -D BUFFER_SIZE=42
 ```
 
-Bonus kısmı için:
+Bonus kısmı derlemek için:
 
 ```bash
 cc -Wall -Wextra -Werror get_next_line_bonus.c get_next_line_utils_bonus.c -D BUFFER_SIZE=42
