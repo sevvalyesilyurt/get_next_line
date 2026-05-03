@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sevyesil <sevyesil@student.42kocaeli.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/07 19:57:19 by sevyesil          #+#    #+#             */
-/*   Updated: 2026/05/03 19:05:00 by sevyesil         ###   ########.fr       */
+/*   Updated: 2026/05/03 17:43:46 by sevyesil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 #include <fcntl.h>
 #include <stdlib.h>
 #include <unistd.h>
@@ -20,11 +20,6 @@ static char	*get_merge_and_free(char *buffer, char *temp_buffer)
 	char	*next_buffer;
 
 	next_buffer = ft_strjoin(buffer, temp_buffer);
-	if (!next_buffer)
-	{
-		free(buffer);
-		return (NULL);
-	}
 	free(buffer);
 	return (next_buffer);
 }
@@ -92,15 +87,17 @@ static char	*get_stash_clear(char *buffer)
 	return (NULL);
 }
 
-char	*get_next_line(int fd)
+char	*get_next_line_bonus(int fd)
 {
-	static char	*buffer;
+	static char	*buffer[1024];
 	char		*line;
 
-	if (fd < 0 || BUFFER_SIZE <= 0 || read(fd, 0, 0) < 0)
+	if (fd < 0 || fd >= 1024 || BUFFER_SIZE <= 0 || read(fd, 0, 0) < 0)
 		return (NULL);
-	buffer = get_read_file(fd, buffer);
-	line = get_line(buffer);
-	buffer = get_stash_clear(buffer);
+	buffer[fd] = get_read_file(fd, buffer[fd]);
+	if (!buffer[fd])
+		return (NULL);
+	line = get_line(buffer[fd]);
+	buffer[fd] = get_stash_clear(buffer[fd]);
 	return (line);
 }
