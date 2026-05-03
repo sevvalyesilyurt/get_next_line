@@ -33,6 +33,11 @@ Bonus kısmı için:
 cc -Wall -Wextra -Werror get_next_line_bonus.c get_next_line_utils_bonus.c -D BUFFER_SIZE=42
 ```
 
+Çalıştırmak için:
+
+```bash
+./a.out
+```
 ---
 
 ## Kullanım
